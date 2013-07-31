@@ -24,18 +24,18 @@ public class CompanyRange {
         return name;
     }
 
-    public static List<String> getCompanys(List<CompanyRange> list, int low, int high) {
-        List<String> companyName = new ArrayList<String>();
-        for (CompanyRange companyRange : list) {
-            if (companyRange.contain(low, high)) {
-                companyName.add(companyRange.getName());
-            }
-        }
-        return companyName;
+    public boolean contain(int low, int high) {
+        return !((low < rangeLow && high < rangeLow) || (low > rangeHigh && high > rangeHigh)) ;
     }
 
-    private boolean contain(int low, int high) {
-        return !((low < rangeLow && high < rangeLow) || (low > rangeHigh && high > rangeHigh)) ;
+    public boolean contain(String rangeStr, int range) {
+        if(rangeStr.equalsIgnoreCase("low")){
+            return !(range > rangeHigh);
+        }
+        if (rangeStr.equalsIgnoreCase("high")) {
+            return !(range < rangeLow);
+        }
+        return false;
     }
 }
 
