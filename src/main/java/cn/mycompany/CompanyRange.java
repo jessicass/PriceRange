@@ -10,33 +10,32 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 public class CompanyRange {
-    private int high;
-    private int low;
+    private int rangeHigh;
+    private int rangeLow;
     private String name;
 
-    public CompanyRange(String name, int low, int high) {
+    public CompanyRange(String name, int rangeLow, int rangeHigh) {
         this.name = name;
-        this.low = low;
-        this.high = high;
+        this.rangeLow = rangeLow;
+        this.rangeHigh = rangeHigh;
     }
 
+    public String getName() {
+        return name;
+    }
 
     public static List<String> getCompanys(List<CompanyRange> list, int low, int high) {
         List<String> companyName = new ArrayList<String>();
         for (CompanyRange companyRange : list) {
-            if (companyRange.contain(low) || companyRange.contain(high)) {
+            if (companyRange.contain(low, high)) {
                 companyName.add(companyRange.getName());
             }
         }
         return companyName;
     }
 
-    private boolean contain(int range) {
-        return range >= low && range <= high;
-    }
-
-    public String getName() {
-        return name;
+    private boolean contain(int low, int high) {
+        return !((low < rangeLow && high < rangeLow) || (low > rangeHigh && high > rangeHigh)) ;
     }
 }
 
